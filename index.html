@@ -1,0 +1,695 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#173a5e">
+<title>Data Center Fiber Optics — Full Exam</title>
+<style>
+:root {
+  --navy:#173a5e;
+  --navy-2:#0f2942;
+  --blue:#2d78b7;
+  --blue-soft:#eaf4fb;
+  --ink:#13202c;
+  --muted:#607080;
+  --line:#d9e2ea;
+  --paper:#ffffff;
+  --bg:#f4f7fa;
+  --ok:#177245;
+  --bad:#b42318;
+  --warn:#a15c00;
+  --shadow:0 14px 40px rgba(17,42,67,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% -10%, rgba(45,120,183,.16), transparent 34rem),
+    linear-gradient(180deg,#eef5fa 0,#f7f9fb 40%,#f4f7fa 100%);
+  min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.shell{width:min(1180px,calc(100% - 28px));margin:0 auto;padding:24px 0 48px}
+.brandbar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:10px 2px 22px;
+}
+.brand{
+  display:flex;align-items:center;gap:12px;font-weight:800;color:var(--navy);
+  letter-spacing:.01em;
+}
+.logo{
+  width:42px;height:42px;border-radius:12px;
+  display:grid;place-items:center;color:white;font-weight:900;
+  background:linear-gradient(145deg,var(--navy),var(--blue));
+  box-shadow:0 8px 20px rgba(23,58,94,.2);
+}
+.source-note{font-size:.82rem;color:var(--muted);text-align:right}
+.panel{
+  background:rgba(255,255,255,.94);border:1px solid rgba(217,226,234,.9);
+  border-radius:24px;box-shadow:var(--shadow);overflow:hidden;
+}
+.hero{
+  padding:clamp(28px,5vw,58px);
+  background:
+    linear-gradient(135deg,rgba(23,58,94,.98),rgba(45,120,183,.94)),
+    #173a5e;
+  color:white;
+}
+.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;opacity:.78}
+h1{font-size:clamp(2rem,5vw,4.2rem);line-height:1.02;margin:.55rem 0 1rem;max-width:850px}
+.hero p{max-width:760px;font-size:clamp(1rem,2vw,1.18rem);line-height:1.6;margin:0;opacity:.9}
+.stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.stat{padding:9px 13px;border:1px solid rgba(255,255,255,.25);border-radius:999px;background:rgba(255,255,255,.09);font-weight:700;font-size:.9rem}
+.start-body{padding:clamp(24px,4vw,42px);display:grid;grid-template-columns:1.2fr .8fr;gap:34px}
+.start-body h2{margin:0 0 12px;font-size:1.35rem;color:var(--navy)}
+.start-body p,.start-body li{line-height:1.6;color:#405365}
+.start-body ul{padding-left:20px;margin:10px 0}
+.form-card{border:1px solid var(--line);border-radius:18px;padding:22px;background:#fbfdff}
+label.field-label{display:block;font-weight:750;margin-bottom:8px}
+.text-input{
+  width:100%;border:1px solid #bfcbd6;border-radius:12px;padding:13px 14px;
+  background:white;outline:none;
+}
+.text-input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(45,120,183,.12)}
+.checkrow{display:flex;align-items:flex-start;gap:10px;margin:16px 0;color:#33485a}
+.checkrow input{margin-top:4px;width:18px;height:18px;accent-color:var(--blue)}
+.btn{
+  border:0;border-radius:12px;padding:12px 17px;font-weight:800;
+  transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--navy);color:white;box-shadow:0 8px 18px rgba(23,58,94,.18)}
+.btn-secondary{background:#edf3f7;color:var(--navy)}
+.btn-danger{background:#fff0ee;color:var(--bad);border:1px solid #f4c8c2}
+.btn-outline{background:white;color:var(--navy);border:1px solid #b9c7d3}
+.btn-wide{width:100%;padding:14px}
+.resume-note{margin-top:12px;font-size:.86rem;color:var(--muted);text-align:center}
+.exam-top{
+  position:sticky;top:0;z-index:20;
+  background:rgba(244,247,250,.92);backdrop-filter:blur(12px);
+  padding:10px 0 14px;
+}
+.exam-top-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.exam-title{font-weight:850;color:var(--navy)}
+.timer{font-variant-numeric:tabular-nums;font-weight:850;color:var(--navy);background:white;border:1px solid var(--line);border-radius:999px;padding:8px 12px}
+.progress-track{height:8px;background:#dce7ef;border-radius:999px;overflow:hidden;margin-top:12px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--navy));transition:width .25s}
+.exam-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.question-card{padding:clamp(22px,4vw,42px);min-height:560px;display:flex;flex-direction:column}
+.q-meta{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:22px}
+.section-badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:var(--blue-soft);color:var(--navy);font-weight:800;font-size:.82rem}
+.q-count{font-weight:800;color:var(--muted)}
+.question-text{font-size:clamp(1.35rem,3vw,2rem);line-height:1.3;margin:0 0 24px;color:#10283d}
+.answers{display:grid;gap:13px;margin-bottom:28px}
+.answer{
+  position:relative;display:flex;align-items:flex-start;gap:13px;
+  border:1.5px solid #cbd7e1;border-radius:16px;padding:16px 17px;background:white;
+  transition:border .15s,background .15s,transform .15s;
+}
+.answer:hover{border-color:#6d9fc8;transform:translateY(-1px);background:#fbfdff}
+.answer.selected{border-color:var(--blue);background:#edf7fd;box-shadow:0 0 0 3px rgba(45,120,183,.09)}
+.answer input{position:absolute;opacity:0;pointer-events:none}
+.answer-key{width:30px;height:30px;flex:0 0 30px;border-radius:9px;background:#edf2f6;display:grid;place-items:center;font-weight:900;color:var(--navy)}
+.answer.selected .answer-key{background:var(--blue);color:white}
+.answer-text{font-size:1.03rem;line-height:1.45;padding-top:3px}
+.q-actions{display:flex;justify-content:space-between;gap:10px;margin-top:auto;padding-top:20px;border-top:1px solid var(--line)}
+.q-actions-left,.q-actions-right{display:flex;gap:10px}
+.flagged{background:#fff5df!important;color:var(--warn)!important;border:1px solid #e9c37d!important}
+.nav-card{padding:18px;position:sticky;top:92px;max-height:calc(100vh - 112px);overflow:auto}
+.nav-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:14px}
+.nav-header h3{margin:0;color:var(--navy);font-size:1rem}
+.legend{font-size:.75rem;color:var(--muted);line-height:1.45;margin-bottom:12px}
+.palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pal-btn{
+  border:1px solid #cbd7e1;background:white;border-radius:9px;aspect-ratio:1;
+  font-size:.78rem;font-weight:800;color:#4a5c6c;
+}
+.pal-btn.answered{background:#e8f5ee;border-color:#9ac9ae;color:var(--ok)}
+.pal-btn.flag{box-shadow:inset 0 -4px 0 #d39a2c}
+.pal-btn.current{outline:3px solid rgba(45,120,183,.24);border-color:var(--blue);color:var(--navy)}
+.submit-area{margin-top:16px;display:grid;gap:9px}
+.nav-summary{font-size:.82rem;color:var(--muted);text-align:center}
+.results-wrap{padding:clamp(24px,4vw,46px)}
+.results-hero{display:grid;grid-template-columns:190px 1fr;gap:28px;align-items:center;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.score-ring{
+  width:170px;height:170px;border-radius:50%;display:grid;place-items:center;
+  background:conic-gradient(var(--blue) 0deg,#dce7ef 0deg);
+  position:relative;
+}
+.score-ring:after{content:"";position:absolute;inset:15px;background:white;border-radius:50%}
+.score-inner{position:relative;z-index:1;text-align:center}
+.score-number{font-size:2.55rem;font-weight:900;color:var(--navy);line-height:1}
+.score-label{font-size:.82rem;color:var(--muted);margin-top:5px}
+.result-title{font-size:2rem;margin:0 0 8px;color:var(--navy)}
+.result-sub{color:var(--muted);line-height:1.55;margin:0}
+.result-chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
+.result-chip{background:#eef4f8;border-radius:999px;padding:8px 11px;font-weight:750;color:#355065;font-size:.86rem}
+.result-actions{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
+.breakdown{margin-top:26px}
+.breakdown h2,.review h2{color:var(--navy);margin-bottom:12px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;background:white}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid #e6edf2;font-size:.91rem}
+th{background:#f4f8fb;color:var(--navy);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+tr:last-child td{border-bottom:0}
+.review{margin-top:30px}
+.review-controls{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.filter-btn.active{background:var(--navy);color:white}
+.review-list{display:grid;gap:12px}
+.review-item{border:1px solid var(--line);border-radius:14px;background:white;overflow:hidden}
+.review-q{padding:15px 17px;font-weight:800;line-height:1.45;display:flex;gap:10px;justify-content:space-between}
+.review-body{padding:0 17px 16px;color:#415567;line-height:1.55}
+.correct-text{color:var(--ok);font-weight:800}
+.wrong-text{color:var(--bad);font-weight:800}
+.ref{font-size:.8rem;color:var(--muted);margin-top:8px}
+.empty{padding:30px;text-align:center;color:var(--muted);border:1px dashed #bccad5;border-radius:14px}
+.footer{text-align:center;color:#778696;font-size:.78rem;line-height:1.5;margin-top:20px}
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translate(-50%,30px);
+  background:#10283d;color:white;padding:11px 15px;border-radius:10px;
+  opacity:0;pointer-events:none;transition:.2s;z-index:99;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:860px){
+  .start-body{grid-template-columns:1fr}
+  .exam-layout{grid-template-columns:1fr}
+  .nav-card{position:static;max-height:none}
+  .palette{grid-template-columns:repeat(10,1fr)}
+  .results-hero{grid-template-columns:1fr;text-align:center}
+  .score-ring{margin:auto}
+  .result-chips,.result-actions{justify-content:center}
+}
+@media(max-width:560px){
+  .shell{width:min(100% - 16px,1180px);padding-top:8px}
+  .brandbar{padding-bottom:12px}
+  .source-note{display:none}
+  .hero{padding:28px 22px}
+  .start-body{padding:22px}
+  .question-card{min-height:520px;padding:20px 17px}
+  .q-meta{align-items:flex-start}
+  .q-actions{flex-direction:column}
+  .q-actions-left,.q-actions-right{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .q-actions-right .btn:last-child{grid-column:1/-1}
+  .palette{grid-template-columns:repeat(8,1fr)}
+  .results-wrap{padding:22px 16px}
+  .result-actions .btn{flex:1 1 45%}
+}
+@media print{
+  body{background:white}
+  .brandbar,.result-actions,.review-controls,.footer{display:none!important}
+  .panel{box-shadow:none;border:0}
+  .shell{width:100%;padding:0}
+  .review-item{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="brandbar">
+    <div class="brand"><div class="logo">DC</div><div>Data Center Fiber Optics Exam</div></div>
+    <div class="source-note">Sledim Solutions · Version 4.0 · Revised June 2026</div>
+  </div>
+
+  <section id="startView" class="panel">
+    <div class="hero">
+      <div class="eyebrow">Interactive full examination</div>
+      <h1>Data Center Fiber Optics &amp; Network Infrastructure</h1>
+      <p>A comprehensive assessment covering all 12 sections of the training manual. Every question has exactly three answer choices.</p>
+      <div class="stats">
+        <span class="stat">130 questions</span>
+        <span class="stat">3 choices each</span>
+        <span class="stat">Automatic scoring</span>
+        <span class="stat">Detailed review</span>
+      </div>
+    </div>
+    <div class="start-body">
+      <div>
+        <h2>Exam instructions</h2>
+        <ul>
+          <li>Answer every question, then submit the full exam.</li>
+          <li>Use the question navigator to jump between questions or flag items for review.</li>
+          <li>Your progress is saved automatically on this device.</li>
+          <li>An 80% score is treated as passing for this exam.</li>
+          <li>After submission, the exam shows section scores, correct answers, explanations, and source references.</li>
+        </ul>
+        <p><strong>Keyboard:</strong> press 1, 2, or 3 to choose an answer; use the left and right arrow keys to navigate.</p>
+      </div>
+      <div class="form-card">
+        <label class="field-label" for="studentName">Student name</label>
+        <input id="studentName" class="text-input" type="text" placeholder="Enter name" autocomplete="name">
+        <label class="checkrow">
+          <input id="shuffleQuestions" type="checkbox">
+          <span>Shuffle question order. Answer choices are always randomized for each new attempt.</span>
+        </label>
+        <button id="startBtn" class="btn btn-primary btn-wide">Start full exam</button>
+        <button id="resumeBtn" class="btn btn-secondary btn-wide hidden" style="margin-top:10px">Resume saved attempt</button>
+        <div id="resumeNote" class="resume-note hidden"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="examView" class="hidden">
+    <div class="exam-top">
+      <div class="exam-top-row">
+        <div class="exam-title">Full Exam</div>
+        <div id="timer" class="timer">00:00:00</div>
+      </div>
+      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+    </div>
+
+    <div class="exam-layout">
+      <article class="panel question-card">
+        <div class="q-meta">
+          <span id="sectionBadge" class="section-badge"></span>
+          <span id="questionCount" class="q-count"></span>
+        </div>
+        <h2 id="questionText" class="question-text"></h2>
+        <div id="answers" class="answers"></div>
+        <div class="q-actions">
+          <div class="q-actions-left">
+            <button id="prevBtn" class="btn btn-secondary">← Previous</button>
+            <button id="flagBtn" class="btn btn-outline">Flag</button>
+          </div>
+          <div class="q-actions-right">
+            <button id="clearBtn" class="btn btn-outline">Clear</button>
+            <button id="nextBtn" class="btn btn-primary">Next →</button>
+          </div>
+        </div>
+      </article>
+
+      <aside class="panel nav-card">
+        <div class="nav-header"><h3>Question navigator</h3><span id="answeredLabel">0/130</span></div>
+        <div class="legend">Green = answered · gold underline = flagged · blue outline = current</div>
+        <div id="palette" class="palette"></div>
+        <div class="submit-area">
+          <button id="submitBtn" class="btn btn-primary btn-wide">Submit exam</button>
+          <button id="saveExitBtn" class="btn btn-secondary btn-wide">Save and exit</button>
+          <div id="navSummary" class="nav-summary"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="resultsView" class="panel hidden">
+    <div class="results-wrap">
+      <div class="results-hero">
+        <div id="scoreRing" class="score-ring">
+          <div class="score-inner">
+            <div id="scoreNumber" class="score-number">0%</div>
+            <div class="score-label">Final score</div>
+          </div>
+        </div>
+        <div>
+          <h1 id="resultTitle" class="result-title">Exam complete</h1>
+          <p id="resultSub" class="result-sub"></p>
+          <div id="resultChips" class="result-chips"></div>
+        </div>
+      </div>
+
+      <div class="result-actions">
+        <button id="shareBtn" class="btn btn-primary">Share results</button>
+        <button id="csvBtn" class="btn btn-secondary">Download CSV</button>
+        <button id="printBtn" class="btn btn-secondary">Print results</button>
+        <button id="retakeBtn" class="btn btn-danger">Start new attempt</button>
+      </div>
+
+      <div class="breakdown">
+        <h2>Section breakdown</h2>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Section</th><th>Correct</th><th>Total</th><th>Score</th></tr></thead>
+            <tbody id="breakdownBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="review">
+        <h2>Answer review</h2>
+        <div class="review-controls">
+          <button class="btn btn-secondary filter-btn active" data-filter="incorrect">Incorrect only</button>
+          <button class="btn btn-secondary filter-btn" data-filter="all">All questions</button>
+          <button class="btn btn-secondary filter-btn" data-filter="flagged">Flagged</button>
+        </div>
+        <div id="reviewList" class="review-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">Based solely on the supplied Sledim Solutions training manual. For internal training use only. Share and distribute according to your organization’s confidentiality requirements.</div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const QUESTION_BANK = [{"section": "1. Introduction and Safety", "question": "Who is the manual primarily written for?", "choices": ["Data center technicians and network engineers", "Only software developers", "Residential electricians"], "correct": 0, "explanation": "It is a training and field resource for personnel who install, maintain, and troubleshoot data center cabling.", "ref": "§1.1, manual p. 3"}, {"section": "1. Introduction and Safety", "question": "What network-speed range is the manual intended to support?", "choices": ["10 Mbps through 1 Gbps", "1G through 400G+", "Only 40G and 100G"], "correct": 1, "explanation": "The stated goal is to support high-speed fiber infrastructure from 1G through 400G and beyond.", "ref": "§1.1, manual p. 3"}, {"section": "1. Introduction and Safety", "question": "What is the safest rule concerning an unknown fiber connector?", "choices": ["Look briefly to check for light", "Never look directly into it", "Cover one eye before looking"], "correct": 1, "explanation": "Invisible infrared laser light can permanently damage the eyes even when no visible light is present.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "When should approved laser-safety eye protection be used?", "choices": ["When working with fiber test equipment, especially high-power sources and OTDRs", "Only when terminating copper cable", "Only outdoors"], "correct": 0, "explanation": "The manual specifically requires approved protection around fiber test equipment and high-power optical sources.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "Where should cleaved or broken fiber scraps be discarded?", "choices": ["In a regular trash bag", "In a designated sharps container", "In a cable tray"], "correct": 1, "explanation": "Fine glass shards can penetrate skin or eyes and therefore belong in designated sharps containers.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "What ESD precaution is required when handling transceivers?", "choices": ["Wear a grounded ESD wrist strap", "Wear insulated rubber boots only", "Disconnect every rack ground"], "correct": 0, "explanation": "The manual directs technicians to follow ESD procedures and ground an ESD wrist strap to the rack.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "Why should unused fiber connectors and transceiver ports remain capped?", "choices": ["To prevent contamination by dust, oil, and debris", "To increase optical wavelength", "To change connector polarity"], "correct": 0, "explanation": "Dust caps reduce contamination that can cause insertion loss and reflections.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "What precaution applies when using isopropyl alcohol in an enclosed area?", "choices": ["Increase laser power", "Ensure adequate ventilation", "Remove all dust caps"], "correct": 1, "explanation": "Cleaning solvents require adequate ventilation in enclosed spaces.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "What should follow a suspected laser-exposure incident?", "choices": ["Continue work if vision seems normal", "Report it and seek medical evaluation immediately", "Wait until the next scheduled inspection"], "correct": 1, "explanation": "The safety section requires immediate reporting and medical evaluation.", "ref": "§1.3, manual p. 4"}, {"section": "1. Introduction and Safety", "question": "Which sections focus on troubleshooting and test equipment?", "choices": ["Sections 2–3", "Sections 6–7", "Sections 10–11"], "correct": 2, "explanation": "Sections 10 and 11 cover troubleshooting methodology and test-and-measurement equipment.", "ref": "§1.2, manual p. 3"}, {"section": "2. Fiber Optic Cable Types", "question": "What is the typical core diameter of single-mode fiber?", "choices": ["8–9 µm", "50 µm", "62.5 µm"], "correct": 0, "explanation": "SMF uses an 8–9 micrometer core that supports a single propagation mode.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "What is the standard jacket color for single-mode fiber under TIA-598-D?", "choices": ["Aqua", "Yellow", "Lime green"], "correct": 1, "explanation": "Yellow is the standard jacket-color convention for single-mode fiber.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "Which wavelengths are commonly used by SMF DML and EML sources in the manual?", "choices": ["650 nm and 850 nm", "850 nm and 953 nm", "1310 nm and 1550 nm"], "correct": 2, "explanation": "The manual identifies 1310 nm and 1550 nm as common single-mode operating wavelengths.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "What are the approximate standard G.652 attenuation values for SMF?", "choices": ["0.35 dB/km at 1310 nm and 0.20 dB/km at 1550 nm", "3.5 dB/km at 1310 nm and 2.0 dB/km at 1550 nm", "0.20 dB/km at 850 nm and 0.35 dB/km at 953 nm"], "correct": 0, "explanation": "The manual gives approximately 0.35 dB/km at 1310 nm and 0.20 dB/km at 1550 nm.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "Around which wavelength is chromatic dispersion near zero in standard SMF?", "choices": ["850 nm", "1310 nm", "1550 nm"], "correct": 1, "explanation": "Standard SMF has a zero-dispersion region around 1310 nm.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "What maximum attenuation defines the OS1 performance class?", "choices": ["≤ 0.4 dB/km", "≤ 1.0 dB/km", "≤ 4.0 dB/km"], "correct": 1, "explanation": "OS1 is defined by a maximum attenuation of 1.0 dB/km at 1310/1550 nm.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "What maximum attenuation defines the OS2 performance class?", "choices": ["≤ 0.4 dB/km", "≤ 1.0 dB/km", "≤ 2.0 dB/km"], "correct": 0, "explanation": "OS2 is the higher-performance class with maximum attenuation of 0.4 dB/km.", "ref": "§2.1, manual p. 5"}, {"section": "2. Fiber Optic Cable Types", "question": "Which core sizes are used by multimode fiber?", "choices": ["8–9 µm only", "50 µm or 62.5 µm", "125 µm or 250 µm"], "correct": 1, "explanation": "OM2–OM5 use 50 µm cores, while OM1 uses a 62.5 µm core.", "ref": "§2.2, manual p. 6"}, {"section": "2. Fiber Optic Cable Types", "question": "What are the listed OM3 reaches at 10G and at 40/100G?", "choices": ["300 m and 100 m", "400 m and 150 m", "82 m and unsupported"], "correct": 0, "explanation": "OM3 supports 300 m at 10G and 100 m at 40/100G.", "ref": "§2.2.1, manual p. 6"}, {"section": "2. Fiber Optic Cable Types", "question": "What are the listed OM4 reaches at 10G and at 40/100G?", "choices": ["300 m and 100 m", "400 m and 150 m", "550 m and 300 m"], "correct": 1, "explanation": "OM4 supports 400 m at 10G and 150 m at 40/100G.", "ref": "§2.2.1, manual p. 6"}, {"section": "2. Fiber Optic Cable Types", "question": "Which description matches OM5?", "choices": ["Orange, 62.5 µm, legacy LED", "Aqua, 50 µm, 2000 MHz·km", "Lime green, 50 µm, SWDM-capable"], "correct": 2, "explanation": "OM5 is lime green, uses a 50 µm core, and supports wideband/SWDM applications.", "ref": "§2.2.1, manual pp. 6–7"}, {"section": "2. Fiber Optic Cable Types", "question": "Which fiber is the preferred default for new long-range single-mode installations?", "choices": ["OM1", "OS1", "OS2"], "correct": 2, "explanation": "OS2 is preferred for new SMF installations, long-distance links, and outdoor/DCI runs.", "ref": "§2.3, manual p. 7"}, {"section": "3. Fiber Optic Connectors", "question": "What ferrule diameter does an LC connector use?", "choices": ["1.25 mm", "2.5 mm", "8 mm"], "correct": 0, "explanation": "LC is a small-form-factor connector with a 1.25 mm ferrule.", "ref": "§3.1, manual p. 8"}, {"section": "3. Fiber Optic Connectors", "question": "Which transceiver families commonly use LC connectors?", "choices": ["SFP, SFP+, SFP28, and SFP56", "Only QSFP-DD800", "Only RJ45 copper modules"], "correct": 0, "explanation": "LC is the standard interface for the listed SFP-family modules.", "ref": "§3.1, manual p. 8"}, {"section": "3. Fiber Optic Connectors", "question": "What is the standard LC configuration for ordinary Tx/Rx links?", "choices": ["Simplex only", "Duplex, with Tx and Rx side by side", "Twelve-fiber parallel"], "correct": 1, "explanation": "LC duplex pairs the transmit and receive fibers side by side.", "ref": "§3.1, manual p. 8"}, {"section": "3. Fiber Optic Connectors", "question": "Which color pairing is correct for connector polish?", "choices": ["UPC green; APC blue", "UPC blue; APC green", "UPC yellow; APC aqua"], "correct": 1, "explanation": "UPC is conventionally blue and APC is green.", "ref": "§3.1 and §3.2.3, manual pp. 8–9"}, {"section": "3. Fiber Optic Connectors", "question": "Which set lists valid MPO fiber capacities mentioned in the manual?", "choices": ["8, 12, 16, 24, 32, 48, and 72", "2, 4, and 6 only", "100 and 200 only"], "correct": 0, "explanation": "MPO connectors can terminate a broad range of fiber counts from 8 through 72.", "ref": "§3.2 and §3.2.5, manual pp. 8–11"}, {"section": "3. Fiber Optic Connectors", "question": "What material is typically used for an MPO MT ferrule?", "choices": ["Zirconia ceramic only", "Glass-filled thermoset polymer/composite", "Soft copper"], "correct": 1, "explanation": "The MT ferrule is precision-molded polymer/composite rather than the zirconia used in many single-fiber ferrules.", "ref": "§3.2.1, manual p. 8"}, {"section": "3. Fiber Optic Connectors", "question": "How are MPO male and female connectors distinguished?", "choices": ["Male has guide pins; female has alignment holes", "Male is always green; female is always blue", "Male is single-mode; female is multimode"], "correct": 0, "explanation": "Male MPO connectors have protruding pins; female connectors have matching holes.", "ref": "§3.2.1 and §3.2.3, manual pp. 8–9"}, {"section": "3. Fiber Optic Connectors", "question": "What is MTP®?", "choices": ["A generic term for every LC connector", "US Conec's enhanced, trademarked MPO implementation", "A copper wiring standard"], "correct": 1, "explanation": "MTP is US Conec's premium, enhanced MPO connector and remains MPO-compatible.", "ref": "§3.2.2, manual p. 9"}, {"section": "3. Fiber Optic Connectors", "question": "What happens if UPC and APC connectors are mated?", "choices": ["They automatically convert polarity", "They can damage both ferrules and create very high loss", "They operate normally at reduced speed"], "correct": 1, "explanation": "The different end-face angles are incompatible and can damage the connectors.", "ref": "§3.2.3, manual p. 9"}, {"section": "3. Fiber Optic Connectors", "question": "Which statement correctly distinguishes jacket color from connector color?", "choices": ["A yellow jacket generally indicates OS2, while a green connector usually indicates APC polish", "A green jacket always means OS2 and a yellow connector always means APC", "Jacket and connector colors always identify the same property"], "correct": 0, "explanation": "Jacket color usually indicates fiber type, while connector housing/boot color often indicates polish or multimode grade.", "ref": "§3.2.4, manual p. 10"}, {"section": "3. Fiber Optic Connectors", "question": "Under MPO Method A key orientation, how does fiber position 1 map?", "choices": ["Position 1 maps to position 1", "Position 1 maps to position 12", "Position 1 maps to position 2"], "correct": 0, "explanation": "Key Up to Key Down gives straight-through position mapping.", "ref": "§3.2.6, manual p. 11"}, {"section": "3. Fiber Optic Connectors", "question": "Under MPO Method B key orientation, how does fiber position 1 map?", "choices": ["Position 1 maps to position 1", "Position 1 maps to position 12", "Position 1 maps to position 6"], "correct": 1, "explanation": "Key Up to Key Up reverses the fiber order, so position 1 maps to 12.", "ref": "§3.2.6, manual p. 11"}, {"section": "4. Copper Cabling and RJ45", "question": "What is the technically correct modular-plug designation commonly called RJ45?", "choices": ["6P2C", "8P8C", "12P12C"], "correct": 1, "explanation": "The Ethernet connector commonly called RJ45 is technically an 8-position, 8-contact modular plug.", "ref": "§4.2, manual p. 13"}, {"section": "4. Copper Cabling and RJ45", "question": "Which is a common data-center use for copper RJ45 cabling?", "choices": ["BMC/iLO/iDRAC out-of-band management", "Long-haul 200 km DCI", "EDFA optical amplification"], "correct": 0, "explanation": "Copper is widely used for server-management and out-of-band networks.", "ref": "§4.1, manual p. 13"}, {"section": "4. Copper Cabling and RJ45", "question": "What is the maximum PoE power listed for IEEE 802.3bt Type 4?", "choices": ["15 W", "30 W", "90 W"], "correct": 2, "explanation": "The manual lists support for up to 90 W alongside data.", "ref": "§4.2, manual p. 13"}, {"section": "4. Copper Cabling and RJ45", "question": "Which pins carry data in 10/100 Mbps Ethernet?", "choices": ["Pins 1, 2, 3, and 6", "Pins 4, 5, 7, and 8 only", "All eight pins equally"], "correct": 0, "explanation": "10/100 Ethernet uses pairs on pins 1–2 and 3–6.", "ref": "§4.2.1, manual p. 13"}, {"section": "4. Copper Cabling and RJ45", "question": "How many twisted pairs carry data in 1000BASE-T?", "choices": ["One pair", "Two pairs", "All four pairs"], "correct": 2, "explanation": "Gigabit Ethernet and above use all four pairs for simultaneous bidirectional data.", "ref": "§4.2.1, manual p. 13"}, {"section": "4. Copper Cabling and RJ45", "question": "What is the T568B conductor color on pin 1?", "choices": ["White/Orange", "White/Green", "Blue"], "correct": 0, "explanation": "T568B begins White/Orange, Orange, White/Green.", "ref": "§4.3.1, manual p. 14"}, {"section": "4. Copper Cabling and RJ45", "question": "What is the T568A conductor color on pin 1?", "choices": ["White/Orange", "White/Green", "White/Brown"], "correct": 1, "explanation": "T568A begins White/Green, Green, White/Orange.", "ref": "§4.3.2, manual p. 14"}, {"section": "4. Copper Cabling and RJ45", "question": "What cable results when the same wiring standard is used at both ends?", "choices": ["Straight-through cable", "Crossover cable", "Rollover cable"], "correct": 0, "explanation": "T568B-to-T568B or T568A-to-T568A creates a straight-through cable.", "ref": "§4.3.4, manual p. 15"}, {"section": "4. Copper Cabling and RJ45", "question": "What cable results from T568A on one end and T568B on the other?", "choices": ["Straight-through cable", "Crossover cable", "Fiber breakout cable"], "correct": 1, "explanation": "Mixing A and B crosses the transmit/receive pairs.", "ref": "§4.3 and §4.3.4, manual p. 15"}, {"section": "4. Copper Cabling and RJ45", "question": "How is a Cisco-style rollover console cable wired?", "choices": ["Pin 1 to pin 1", "Only the orange and green pairs are swapped", "The pin order is fully reversed, including pin 1 to pin 8"], "correct": 2, "explanation": "A rollover cable reverses the entire pin order.", "ref": "§4.3.4, manual p. 15"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "How many twisted pairs are inside a standard Ethernet cable?", "choices": ["Two", "Four", "Eight"], "correct": 1, "explanation": "Eight conductors are organized into four twisted pairs.", "ref": "§5.1, manual p. 17"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "Why does each pair in the same cable use a slightly different twist rate?", "choices": ["To make all pairs the same electrical length", "To reduce persistent inter-pair crosstalk", "To identify the cable category by sight"], "correct": 1, "explanation": "Different twist rates prevent electromagnetic fields from aligning continuously.", "ref": "§5.1 and §5.4, manual pp. 17–19"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What are the maximum speed and distance listed for Cat5e?", "choices": ["1 Gbps at 100 m", "10 Gbps at 100 m", "40 Gbps at 30 m"], "correct": 0, "explanation": "Cat5e supports 1 Gbps over a 100 m channel.", "ref": "§5.2, manual p. 17"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What is the listed Cat6 reach at 10 Gbps?", "choices": ["30 m", "55 m", "100 m"], "correct": 1, "explanation": "Cat6 supports 10G to approximately 55 m, while 1G can reach 100 m.", "ref": "§5.2, manual p. 17"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What does Cat6A support at full channel length?", "choices": ["10 Gbps at 100 m", "25 Gbps at 100 m", "40 Gbps at 300 m"], "correct": 0, "explanation": "Cat6A is specified for 10G at 100 m.", "ref": "§5.2, manual p. 17"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What are the listed Cat8 limits?", "choices": ["1 Gbps at 100 m", "10 Gbps at 55 m", "25–40 Gbps at 30 m"], "correct": 2, "explanation": "Cat8 targets short data-center links up to 25–40G over 30 m.", "ref": "§5.2, manual p. 17"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What does F/UTP mean in the manual's shielding table?", "choices": ["No shielding", "One overall foil shield around all four pairs", "Individual foil plus an overall braid"], "correct": 1, "explanation": "F/UTP uses an overall foil screen while the individual pairs remain unshielded.", "ref": "§5.3, manual p. 18"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What does U/FTP mean in the manual's shielding table?", "choices": ["Individual foil around each pair with no overall shield", "One overall braid only", "No shielding of any kind"], "correct": 0, "explanation": "U/FTP provides per-pair foil shielding without an overall screen.", "ref": "§5.3, manual p. 18"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "Which construction provides individual pair foil plus an overall braided shield?", "choices": ["UTP", "F/UTP", "S/FTP"], "correct": 2, "explanation": "S/FTP combines foil around each pair with an overall braided shield.", "ref": "§5.3, manual p. 18"}, {"section": "5. Twisted-Pair Categories and Shielding", "question": "What is required when deploying shielded copper cabling?", "choices": ["Ground it properly at both ends using compatible shielded infrastructure", "Leave the shield disconnected everywhere", "Use unshielded patch panels"], "correct": 0, "explanation": "Improper grounding can create ground-loop interference and make performance worse.", "ref": "§5.3, manual p. 18"}, {"section": "6. MPO Polarity", "question": "What is the fundamental purpose of fiber polarity management?", "choices": ["To align every transmitter with the intended receiver", "To increase the fiber core diameter", "To convert multimode fiber into single-mode"], "correct": 0, "explanation": "Polarity ensures that Tx at one end reaches Rx at the other.", "ref": "§6.1, manual p. 20"}, {"section": "6. MPO Polarity", "question": "How does Type A MPO polarity map fiber positions through the trunk?", "choices": ["Straight through, position for position", "Completely reversed", "Only odd positions are swapped"], "correct": 0, "explanation": "Type A maps 1-to-1, 2-to-2, and so on.", "ref": "§6.2, manual p. 20"}, {"section": "6. MPO Polarity", "question": "What does a Type A duplex breakout arrangement require to restore Tx-to-Rx pairing?", "choices": ["Only two A-to-A patch cords", "One A-to-A and one A-to-B patch cord", "No patch cords under any circumstances"], "correct": 1, "explanation": "Because the trunk is straight, a single flip is introduced through the patch-cord combination.", "ref": "§6.2, manual p. 20"}, {"section": "6. MPO Polarity", "question": "How does Type B MPO polarity map the fiber array?", "choices": ["Position 1 to 1", "Position 1 to 12, 2 to 11, and so on", "Position 1 to 2, 3 to 4, and so on"], "correct": 1, "explanation": "Type B reverses the complete fiber order.", "ref": "§6.3, manual p. 20"}, {"section": "6. MPO Polarity", "question": "Which duplex patch-cord type is used at the equipment side with Type B?", "choices": ["Standard straight-through A-to-A", "Only A-to-B flipped", "Rollover RJ45"], "correct": 0, "explanation": "Type B's reversed trunk permits ordinary straight-through duplex patch cords.", "ref": "§6.3, manual p. 20"}, {"section": "6. MPO Polarity", "question": "Which application most commonly uses Type B polarity?", "choices": ["40G/100G SR4 parallel optics", "Analog telephone service", "Single-fiber simplex links only"], "correct": 0, "explanation": "Type B is widely used for native SR4 parallel-optic links.", "ref": "§6.3 and §6.5, manual pp. 20–21"}, {"section": "6. MPO Polarity", "question": "How does Type C polarity map adjacent fibers?", "choices": ["All fibers remain straight", "The entire array is reversed", "Adjacent pairs swap: 1↔2, 3↔4, and so on"], "correct": 2, "explanation": "Type C performs pairwise swaps within the trunk.", "ref": "§6.4, manual p. 20"}, {"section": "6. MPO Polarity", "question": "For a native SR4/SR8/VR8 transceiver-to-transceiver link, what sits between the transceivers?", "choices": ["Direct MPO trunk; no LC patch cords", "Two RJ45 crossover cables", "An LC duplex splitter at each end"], "correct": 0, "explanation": "Native parallel optics connect through MPO without LC fanout cords.", "ref": "§6.5 note, manual p. 20"}, {"section": "6. MPO Polarity", "question": "What polarity is recommended for 400G/800G SR8 or VR8 direct MPO links?", "choices": ["Type A", "Type B", "Type C only"], "correct": 1, "explanation": "The selection guide lists Type B for these direct parallel-optic applications.", "ref": "§6.5, manual p. 21"}, {"section": "6. MPO Polarity", "question": "Which symptom strongly suggests an MPO polarity problem?", "choices": ["All copper ports lose PoE power", "Some parallel-optic channels work while others fail", "The cable jacket changes color"], "correct": 1, "explanation": "Incorrect mapping often causes partial channel connectivity on 40G/100G MPO links.", "ref": "§10.1.3, manual p. 31"}, {"section": "7. MPO Cable Types", "question": "What areas are normally connected by MPO trunk cables?", "choices": ["Main distribution areas to equipment distribution areas", "A desktop to a wall outlet only", "Two USB peripherals"], "correct": 0, "explanation": "Trunks form the backbone between MDAs and EDAs.", "ref": "§7.1, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What connectors are normally fitted to both ends of an MPO trunk cable?", "choices": ["RJ45", "LC simplex", "MPO"], "correct": 2, "explanation": "Trunk assemblies are terminated MPO-to-MPO.", "ref": "§7.1, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What is a major advantage of factory pre-terminated trunk assemblies?", "choices": ["They eliminate field termination of individual fibers and improve consistency", "They require more on-site polishing", "They prevent all future polarity errors automatically"], "correct": 0, "explanation": "Factory termination speeds deployment and provides consistent connector quality.", "ref": "§7.1, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "Which jacket ratings are listed for MPO trunk cables?", "choices": ["OFNP and OFNR", "PVC only with no rating", "CMX and THHN only"], "correct": 0, "explanation": "The manual lists plenum-rated OFNP and riser-rated OFNR options.", "ref": "§7.1, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What does an MPO breakout or fanout cable do?", "choices": ["Converts one MPO into individual LC duplex connections", "Converts copper into AC power", "Joins two coaxial cables"], "correct": 0, "explanation": "Breakouts bridge an MPO backbone to LC-based equipment.", "ref": "§7.2, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What is a common MPO-12 breakout configuration?", "choices": ["1 MPO-12 to 6 LC duplex", "1 MPO-12 to 12 RJ45", "6 MPO-12 to 1 LC simplex"], "correct": 0, "explanation": "Twelve fibers fan out into six two-fiber LC duplex links.", "ref": "§7.2, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What is the primary role of a patch cable or jumper?", "choices": ["Short connections within racks or between equipment and patch panels", "Long-haul links between cities", "Permanent fusion splicing"], "correct": 0, "explanation": "Patch cables are short, flexible interconnections inside the data center.", "ref": "§7.3, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "Why should the shortest practical patch-cable length be used?", "choices": ["To reduce loss, clutter, and cable-management complexity", "To increase modal dispersion", "To make labels unnecessary"], "correct": 0, "explanation": "Shorter jumpers reduce unnecessary loss and rack congestion.", "ref": "§7.3, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What trunk-cable length range is listed in the quick reference?", "choices": ["0.5–10 m", "1–15 m", "5–300 m"], "correct": 2, "explanation": "The trunk-cable range is listed as 5 m to 300 m.", "ref": "§7.4, manual p. 22"}, {"section": "7. MPO Cable Types", "question": "What breakout/fanout length range is listed?", "choices": ["1–15 m", "30–300 m", "500 m–10 km"], "correct": 0, "explanation": "The quick-reference table lists breakout cables from 1 m to 15 m.", "ref": "§7.4, manual p. 22"}, {"section": "8. Optical Transceivers", "question": "What does an optical transceiver do?", "choices": ["Converts between electrical and optical signals", "Measures only copper resistance", "Stores network configuration permanently"], "correct": 0, "explanation": "It interfaces the electrical domain of equipment with the optical fiber plant.", "ref": "§8.1, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "What is the maximum speed listed for SFP?", "choices": ["1 Gbps", "10 Gbps", "25 Gbps"], "correct": 0, "explanation": "SFP is the single-lane 1G generation.", "ref": "§8.2, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "What is the maximum speed listed for SFP+?", "choices": ["1 Gbps", "10 Gbps", "50 Gbps"], "correct": 1, "explanation": "SFP+ supports one 10G electrical lane.", "ref": "§8.2, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "What is the maximum speed listed for SFP28?", "choices": ["25 Gbps", "40 Gbps", "100 Gbps"], "correct": 0, "explanation": "SFP28 provides one 25G lane.", "ref": "§8.2, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "What is the maximum speed listed for SFP56?", "choices": ["10 Gbps", "50 Gbps", "200 Gbps"], "correct": 1, "explanation": "SFP56 provides one 50G lane.", "ref": "§8.2, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "How is QSFP+ electrically organized?", "choices": ["1 × 40G lane", "4 × 10G lanes", "8 × 5G lanes"], "correct": 1, "explanation": "QSFP+ aggregates four 10G electrical lanes for 40G.", "ref": "§8.2, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "How is QSFP28 electrically organized?", "choices": ["4 × 25G lanes", "8 × 12.5G lanes", "1 × 100G lane only"], "correct": 0, "explanation": "QSFP28 uses four 25G lanes to reach 100G.", "ref": "§8.2, manual p. 23"}, {"section": "8. Optical Transceivers", "question": "How do QSFP-DD and OSFP commonly reach 400G?", "choices": ["2 × 200G NRZ only", "8 × 50G PAM4 lanes", "16 × 25G copper pairs"], "correct": 1, "explanation": "Both 400G form factors use eight 50G electrical lanes.", "ref": "§8.2 and Fig. 8.1b, manual pp. 23–24"}, {"section": "8. Optical Transceivers", "question": "How do QSFP-DD800 and OSFP800 reach 800G?", "choices": ["8 × 100G PAM4 lanes", "4 × 200G optical fibers only", "One 800G serial lane"], "correct": 0, "explanation": "The 800G revisions keep eight lanes and double each lane to 100G.", "ref": "Fig. 8.1b, manual p. 24"}, {"section": "8. Optical Transceivers", "question": "What are the 10GBASE-SR reaches over OM3 and OM4?", "choices": ["70 m / 100 m", "100 m / 150 m", "300 m / 400 m"], "correct": 2, "explanation": "10GBASE-SR reaches 300 m on OM3 and 400 m on OM4.", "ref": "§8.3.1, manual p. 25"}, {"section": "8. Optical Transceivers", "question": "What are the 100GBASE-SR4 reaches over OM3 and OM4?", "choices": ["70 m / 100 m", "300 m / 400 m", "500 m / 2 km"], "correct": 0, "explanation": "100G SR4 reaches 70 m on OM3 and 100 m on OM4.", "ref": "§8.3.1, manual p. 25"}, {"section": "8. Optical Transceivers", "question": "Which connector is used by 400GBASE-SR8?", "choices": ["LC duplex", "MPO-16", "RJ45"], "correct": 1, "explanation": "SR8 needs eight fiber pairs and uses MPO-16.", "ref": "§8.3.1, manual p. 25"}, {"section": "8. Optical Transceivers", "question": "What is distinctive about 400GBASE-SR4.2?", "choices": ["It uses dual 850/910 nm wavelengths and can reuse MPO-12 cabling", "It is a copper-only 400G standard", "It requires 16 single-mode fibers at 1550 nm"], "correct": 0, "explanation": "SR4.2 carries bidirectional dual wavelengths on four fiber pairs, enabling reuse of MPO-12.", "ref": "§8.3.1 note, manual p. 25"}, {"section": "8. Optical Transceivers", "question": "Which distance sequence correctly matches DR, FR, and LR optics?", "choices": ["DR 500 m, FR 2 km, LR 10 km", "DR 10 km, FR 500 m, LR 2 km", "DR 100 m, FR 300 m, LR 400 m"], "correct": 0, "explanation": "The manual's common single-mode reaches are 500 m for DR, 2 km for FR, and 10 km for LR.", "ref": "§8.3.2, manual p. 26"}, {"section": "8. Optical Transceivers", "question": "Which connector is listed for 400GBASE-DR4?", "choices": ["MPO-12", "LC duplex", "BNC"], "correct": 0, "explanation": "400G DR4 uses four parallel single-mode lanes over MPO-12.", "ref": "§8.3.2, manual p. 26"}, {"section": "8. Optical Transceivers", "question": "Which backward-compatibility statement is correct?", "choices": ["SFP28 ports can accept SFP+ at 10G and SFP at 1G", "SFP-only ports always accept SFP+ modules", "QSFP+ ports accept every QSFP-DD800 module"], "correct": 0, "explanation": "SFP28 supports the two prior SFP generations at their lower speeds, subject to platform support.", "ref": "§8.3.3, manual p. 26"}, {"section": "9. Data Center Network Architecture", "question": "What are the three layers of the traditional data-center architecture?", "choices": ["Core, aggregation/distribution, and access", "Leaf, spine, and endpoint only", "Physical, data link, and transport"], "correct": 0, "explanation": "The legacy design uses Core → Aggregation/Distribution → Access.", "ref": "§9.1, manual p. 28"}, {"section": "9. Data Center Network Architecture", "question": "For which traffic pattern was the traditional three-tier design optimized?", "choices": ["East-west server-to-server traffic", "North-south client-to-server traffic", "Only storage replication traffic"], "correct": 1, "explanation": "The centralized core model was built around traffic entering and leaving the network.", "ref": "§9.1, manual p. 28"}, {"section": "9. Data Center Network Architecture", "question": "Why can Spanning Tree create a bottleneck in a three-tier design?", "choices": ["It blocks redundant paths and leaves backup links idle", "It forces every link to run at 1G", "It disables routing protocols"], "correct": 0, "explanation": "STP prevents loops by blocking paths, so available links are not all used simultaneously.", "ref": "§9.1, manual p. 28"}, {"section": "9. Data Center Network Architecture", "question": "How are leaf and spine switches interconnected?", "choices": ["Every leaf connects to every spine", "Each leaf connects to only one spine", "Spines connect directly to servers instead of leaves"], "correct": 0, "explanation": "A full mesh between leaf and spine tiers is the defining topology.", "ref": "§9.2, manual p. 28"}, {"section": "9. Data Center Network Architecture", "question": "What is the maximum normal hop count between two servers in a single leaf-spine fabric?", "choices": ["2 hops", "4 hops", "6 hops"], "correct": 0, "explanation": "Traffic normally travels leaf → spine → leaf, providing a consistent two-hop path.", "ref": "§9.2, manual p. 28"}, {"section": "9. Data Center Network Architecture", "question": "What replaces STP for active multi-path forwarding in leaf-spine fabrics?", "choices": ["ECMP routing", "USB enumeration", "Rollover cabling"], "correct": 0, "explanation": "Equal-Cost Multi-Path routing distributes traffic across all available spine paths.", "ref": "§9.2, manual p. 28"}, {"section": "9. Data Center Network Architecture", "question": "What is east-west traffic?", "choices": ["Traffic between servers inside the data center", "Traffic entering from internet clients only", "Traffic between a technician and a console port"], "correct": 0, "explanation": "East-west describes internal server-to-server communication.", "ref": "§9.2.1, manual p. 29"}, {"section": "9. Data Center Network Architecture", "question": "What does a 3:1 oversubscription ratio mean?", "choices": ["Three times more server-facing bandwidth than spine-facing bandwidth", "Three spine ports for every server port", "Three data centers share one IP address"], "correct": 0, "explanation": "Oversubscription compares leaf downlink capacity with leaf uplink capacity.", "ref": "§9.2.1, manual p. 29"}, {"section": "9. Data Center Network Architecture", "question": "Approximately how many segment IDs can VXLAN provide?", "choices": ["4,094", "About 16 million", "Exactly 256"], "correct": 1, "explanation": "VXLAN uses 24-bit VNIs and supports more than 16 million logical segments.", "ref": "§9.2.2, manual p. 29"}, {"section": "9. Data Center Network Architecture", "question": "What is the maximum listed path for servers in different multi-pod fabrics?", "choices": ["2 hops", "4 hops", "8 hops"], "correct": 1, "explanation": "Inter-pod traffic can traverse leaf → spine → super-spine → spine → leaf, counted as four network hops.", "ref": "§9.2.3, manual p. 29"}, {"section": "10. Fiber Troubleshooting", "question": "Which is a common cause of high insertion loss?", "choices": ["Dirty connector end-faces", "Correctly maintained bend radius", "A clean, fully seated connector"], "correct": 0, "explanation": "Contamination, damage, poor splices, and excessive bends are major loss sources.", "ref": "§10.1.1, manual p. 31"}, {"section": "10. Fiber Troubleshooting", "question": "Which mismatch can cause a no-light or no-link condition?", "choices": ["Single-mode transceiver used with multimode fiber, or vice versa", "Matching OS2 optics and OS2 fiber", "Correct Tx/Rx mapping"], "correct": 0, "explanation": "The transceiver's supported fiber type must match the installed cable.", "ref": "§10.1.2, manual p. 31"}, {"section": "10. Fiber Troubleshooting", "question": "Which symptom is associated with MPO polarity errors?", "choices": ["Partial channel operation on a 40G/100G link", "All rack fans stop spinning", "The cable tester battery drains"], "correct": 0, "explanation": "A/B/C mismatches can leave some parallel channels aligned and others misaligned.", "ref": "§10.1.3, manual p. 31"}, {"section": "10. Fiber Troubleshooting", "question": "What optical margin does the manual recommend above minimum receiver sensitivity?", "choices": ["At least 0.1 dB", "At least 3 dB", "At least 30 dB"], "correct": 1, "explanation": "A margin of 3 dB or more helps avoid marginal high-BER operation.", "ref": "§10.1.4, manual p. 31"}, {"section": "10. Fiber Troubleshooting", "question": "What is the first step in the troubleshooting methodology?", "choices": ["Replace the trunk immediately", "Identify the symptom and record a baseline", "Run an OTDR before checking anything else"], "correct": 1, "explanation": "Begin by gathering interface status, counters, and optical-power readings.", "ref": "§10.2, manual p. 32"}, {"section": "10. Fiber Troubleshooting", "question": "What should be checked during visual inspection?", "choices": ["Loose cables, tight bends, damage, missing caps, and pinched routing", "Only the switch hostname", "Only the cable jacket color"], "correct": 0, "explanation": "Simple physical problems should be ruled out before advanced testing.", "ref": "§10.2, manual p. 32"}, {"section": "10. Fiber Troubleshooting", "question": "What magnification does the manual list for connector inspection?", "choices": ["2×–4×", "20×–40×", "200×–400×"], "correct": 2, "explanation": "Inspection scopes typically magnify ferrule end-faces 200 to 400 times.", "ref": "§10.2 and §11.5, manual pp. 32, 40"}, {"section": "10. Fiber Troubleshooting", "question": "When swapping known-good components, what is the recommended method?", "choices": ["Swap multiple parts simultaneously", "Swap one component at a time, starting with the patch cord", "Replace the switch before testing the cable"], "correct": 1, "explanation": "Single-component substitution preserves fault isolation; patch cords are a common first suspect.", "ref": "§10.2, manual p. 32"}, {"section": "10. Fiber Troubleshooting", "question": "Which tool should be used to pinpoint a persistent mid-span break or high-loss event?", "choices": ["OTDR", "Basic RJ45 continuity tester", "Cable label printer"], "correct": 0, "explanation": "An OTDR locates events along the fiber by distance.", "ref": "§10.2, manual p. 32"}, {"section": "10. Fiber Troubleshooting", "question": "How quickly can the OX1-PRO Flash Advisor display link KPIs?", "choices": ["Under 3 seconds", "About 3 minutes", "At least 30 minutes"], "correct": 0, "explanation": "Flash Advisor provides rapid single-ended verification in under three seconds.", "ref": "§10.3, manual p. 33"}, {"section": "11. Test and Measurement Tools", "question": "What light does a Visual Fault Locator inject?", "choices": ["Visible red light at about 650 nm", "Infrared light at 1550 nm only", "Ultraviolet light at 250 nm"], "correct": 0, "explanation": "A VFL uses visible red laser light, usually around 650 nm.", "ref": "§11.1, manual p. 35"}, {"section": "11. Test and Measurement Tools", "question": "What is a key limitation of a VFL?", "choices": ["It cannot locate any break", "It is not suitable for quantitative loss measurement", "It only works on copper"], "correct": 1, "explanation": "A VFL is useful for tracing and continuity, not calibrated insertion-loss testing.", "ref": "§11.1, manual p. 35"}, {"section": "11. Test and Measurement Tools", "question": "What quantity does an Optical Power Meter measure directly?", "choices": ["Absolute optical power in dBm", "Cable twist rate in turns per inch", "Packet latency in milliseconds"], "correct": 0, "explanation": "An OPM measures optical power at a point on the link.", "ref": "§11.2, manual p. 36"}, {"section": "11. Test and Measurement Tools", "question": "What equipment combination forms an OLTS?", "choices": ["A calibrated light source and an optical power meter", "A VFL and a copper crimper", "An OTDR and a label printer"], "correct": 0, "explanation": "An Optical Loss Test Set uses a known source and a meter for end-to-end loss measurement.", "ref": "§11.2 and glossary, manual pp. 36, 46"}, {"section": "11. Test and Measurement Tools", "question": "How should proper link certification be performed with an OLTS?", "choices": ["Measure bidirectionally at the operating wavelengths and compare with the calculated loss budget", "Check only whether the link light is green", "Compare cable color with connector color"], "correct": 0, "explanation": "Certification requires measured end-to-end loss from both directions against the allowable budget.", "ref": "§11.2, manual p. 36"}, {"section": "11. Test and Measurement Tools", "question": "Why is checking Rx power against receiver sensitivity not a substitute for cabling certification?", "choices": ["It verifies operating margin, not actual insertion loss against a standards-based link budget", "It measures only cable length", "It cannot be performed on a live link"], "correct": 0, "explanation": "Operational margin confirms a live link can work but does not certify the passive cabling plant.", "ref": "§11.2, manual p. 36"}, {"section": "11. Test and Measurement Tools", "question": "How does an OTDR characterize a fiber?", "choices": ["It launches pulses and analyzes reflections and Rayleigh backscatter", "It measures only DC resistance", "It sends Ethernet frames and checks CRC"], "correct": 0, "explanation": "The returned optical energy creates a distance-based trace of events.", "ref": "§11.3, manual p. 39"}, {"section": "11. Test and Measurement Tools", "question": "What is required for bidirectional OTDR certification?", "choices": ["Average two traces, one from each end", "Use one trace and double every loss value", "Replace the OTDR with a VFL"], "correct": 0, "explanation": "A single OTDR trace is unidirectional; two opposite-direction traces are averaged.", "ref": "§11.3, manual p. 39"}, {"section": "11. Test and Measurement Tools", "question": "What is identified as the number-one cause of fiber link problems in data centers?", "choices": ["Connector contamination", "Excessive cable labeling", "Using an optical power meter"], "correct": 0, "explanation": "Dirt and contamination on connector end-faces are the most common cause.", "ref": "§11.5, manual p. 40"}, {"section": "11. Test and Measurement Tools", "question": "On a basic RJ45/USB/coax continuity tester, what does a missing LED indicate?", "choices": ["An open conductor", "A perfect pass", "A fiber macro-bend"], "correct": 0, "explanation": "A missing pin indication means the conductor is broken or not connected.", "ref": "§11.6, manual p. 41"}, {"section": "12. Best Practices and Quick Reference", "question": "In the absence of a manufacturer specification, what bend-radius rules of thumb are given?", "choices": ["About 10× cable diameter static and 20× dynamic under tension", "2× static and 3× dynamic", "50× static and 100× dynamic"], "correct": 0, "explanation": "The manual gives 10× for long-term installed bends and up to 20× while pulling.", "ref": "§12.1, manual p. 44"}, {"section": "12. Best Practices and Quick Reference", "question": "Why should zip ties not be used on fiber cables?", "choices": ["They can crush the cable and cause micro-bend loss", "They make the cable too electrically conductive", "They convert UPC connectors to APC"], "correct": 0, "explanation": "Over-tight zip ties can deform fibers; Velcro is preferred.", "ref": "§12.1, manual p. 44"}, {"section": "12. Best Practices and Quick Reference", "question": "What information should a consistent fiber-cable label include?", "choices": ["Source, destination, fiber type, and polarity method", "Only the technician's initials", "Only the jacket color"], "correct": 0, "explanation": "Complete labels make future moves and troubleshooting reliable.", "ref": "§12.1, manual p. 44"}, {"section": "12. Best Practices and Quick Reference", "question": "What maximum pathway fill ratio is recommended for cable trays?", "choices": ["20%", "40%", "90%"], "correct": 1, "explanation": "The manual recommends no more than 40% fill to preserve growth capacity and airflow.", "ref": "§12.1, manual p. 44"}, {"section": "12. Best Practices and Quick Reference", "question": "What pull-tension range is listed as typical for standard indoor fiber?", "choices": ["2–5 lb", "25–50 lb", "250–500 lb"], "correct": 1, "explanation": "The manual gives approximately 25–50 pounds, or 110–220 newtons.", "ref": "§12.1, manual p. 44"}, {"section": "12. Best Practices and Quick Reference", "question": "What should be recorded after installing and testing a link?", "choices": ["Baseline Tx/Rx optical power levels", "Only the cable purchase price", "Only the rack-door serial number"], "correct": 0, "explanation": "Baseline power readings support later comparison and fault diagnosis.", "ref": "§12.1, manual p. 44"}, {"section": "12. Best Practices and Quick Reference", "question": "What is the difference between dB and dBm?", "choices": ["dB is relative loss/gain; dBm is absolute power referenced to 1 mW", "dB measures distance; dBm measures temperature", "They are identical units"], "correct": 0, "explanation": "dB expresses a ratio, while dBm expresses absolute power.", "ref": "§12.3 glossary, manual p. 46"}, {"section": "12. Best Practices and Quick Reference", "question": "What does BER mean?", "choices": ["Bit Error Rate", "Bandwidth Extension Ratio", "Bidirectional Ethernet Reach"], "correct": 0, "explanation": "BER is the ratio of errored bits to total transmitted bits.", "ref": "§12.3 glossary, manual p. 46"}, {"section": "12. Best Practices and Quick Reference", "question": "What does PAM4 encode?", "choices": ["2 bits per symbol using four amplitude levels", "4 bits per symbol using two wavelengths", "1 bit per symbol using four fibers"], "correct": 0, "explanation": "PAM4 doubles throughput per lane versus NRZ by representing four signal levels.", "ref": "§12.3 glossary, manual p. 46"}, {"section": "12. Best Practices and Quick Reference", "question": "What does VXLAN do?", "choices": ["Extends Layer 2 over a Layer 3 underlay using VNIs", "Converts an LC connector into RJ45", "Measures optical return loss directly"], "correct": 0, "explanation": "VXLAN is an overlay encapsulation protocol for scalable segmentation and multi-tenancy.", "ref": "§12.3 glossary, manual p. 46"}];
+const STORAGE_KEY = "sledimFiberExamStateV1";
+const PASS_SCORE = 80;
+
+const $ = (id) => document.getElementById(id);
+const startView = $("startView");
+const examView = $("examView");
+const resultsView = $("resultsView");
+let state = null;
+let timerHandle = null;
+let reviewFilter = "incorrect";
+
+function shuffle(array) {
+  const a = [...array];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function prepareQuestions(shuffleQs) {
+  let list = QUESTION_BANK.map((q, originalIndex) => ({
+    ...q,
+    originalIndex,
+    answers: shuffle(q.choices.map((text, i) => ({text, correct:i === q.correct})))
+  }));
+  if (shuffleQs) list = shuffle(list);
+  return list;
+}
+
+function makeNewState() {
+  const name = $("studentName").value.trim() || "Student";
+  return {
+    version:1,
+    name,
+    questions:prepareQuestions($("shuffleQuestions").checked),
+    selected:Array(QUESTION_BANK.length).fill(null),
+    flagged:Array(QUESTION_BANK.length).fill(false),
+    current:0,
+    startedAt:Date.now(),
+    elapsedBefore:0,
+    submitted:false,
+    completedAt:null
+  };
+}
+
+function saveState() {
+  if (state && !state.submitted) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadSaved() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && saved.questions?.length === QUESTION_BANK.length && !saved.submitted) return saved;
+  } catch (e) {}
+  return null;
+}
+
+function updateResumeButton() {
+  const saved = loadSaved();
+  if (!saved) return;
+  const answered = saved.selected.filter(v => v !== null).length;
+  $("resumeBtn").classList.remove("hidden");
+  $("resumeNote").classList.remove("hidden");
+  $("resumeNote").textContent = `${answered} of ${QUESTION_BANK.length} answered · ${saved.name}`;
+}
+
+function startExam(newAttempt=true) {
+  state = newAttempt ? makeNewState() : loadSaved();
+  if (!state) return;
+  startView.classList.add("hidden");
+  resultsView.classList.add("hidden");
+  examView.classList.remove("hidden");
+  renderPalette();
+  renderQuestion();
+  startTimer();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function elapsedMs() {
+  if (!state) return 0;
+  return (state.elapsedBefore || 0) + (Date.now() - state.startedAt);
+}
+
+function formatTime(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const h = String(Math.floor(total / 3600)).padStart(2,"0");
+  const m = String(Math.floor((total % 3600) / 60)).padStart(2,"0");
+  const s = String(total % 60).padStart(2,"0");
+  return `${h}:${m}:${s}`;
+}
+
+function startTimer() {
+  clearInterval(timerHandle);
+  $("timer").textContent = formatTime(elapsedMs());
+  timerHandle = setInterval(() => $("timer").textContent = formatTime(elapsedMs()), 1000);
+}
+
+function renderQuestion() {
+  const q = state.questions[state.current];
+  $("sectionBadge").textContent = q.section;
+  $("questionCount").textContent = `Question ${state.current + 1} of ${state.questions.length}`;
+  $("questionText").textContent = q.question;
+  const answerWrap = $("answers");
+  answerWrap.innerHTML = "";
+  q.answers.forEach((answer, index) => {
+    const label = document.createElement("label");
+    label.className = "answer" + (state.selected[state.current] === index ? " selected" : "");
+    label.innerHTML = `
+      <input type="radio" name="answer" value="${index}">
+      <span class="answer-key">${index + 1}</span>
+      <span class="answer-text"></span>`;
+    label.querySelector(".answer-text").textContent = answer.text;
+    label.addEventListener("click", () => selectAnswer(index));
+    answerWrap.appendChild(label);
+  });
+  $("prevBtn").disabled = state.current === 0;
+  $("nextBtn").textContent = state.current === state.questions.length - 1 ? "Review →" : "Next →";
+  $("flagBtn").classList.toggle("flagged", state.flagged[state.current]);
+  $("flagBtn").textContent = state.flagged[state.current] ? "Flagged" : "Flag";
+  updateProgress();
+  updatePalette();
+  saveState();
+}
+
+function selectAnswer(index) {
+  state.selected[state.current] = index;
+  renderQuestion();
+}
+
+function goTo(index) {
+  state.current = Math.max(0, Math.min(state.questions.length - 1, index));
+  renderQuestion();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function updateProgress() {
+  const answered = state.selected.filter(v => v !== null).length;
+  $("progressFill").style.width = `${(answered/state.questions.length)*100}%`;
+  $("answeredLabel").textContent = `${answered}/${state.questions.length}`;
+  const flags = state.flagged.filter(Boolean).length;
+  $("navSummary").textContent = `${state.questions.length - answered} unanswered · ${flags} flagged`;
+}
+
+function renderPalette() {
+  const p = $("palette");
+  p.innerHTML = "";
+  state.questions.forEach((_, i) => {
+    const b = document.createElement("button");
+    b.className = "pal-btn";
+    b.textContent = i + 1;
+    b.title = `Go to question ${i+1}`;
+    b.addEventListener("click", () => goTo(i));
+    p.appendChild(b);
+  });
+}
+
+function updatePalette() {
+  [...$("palette").children].forEach((b,i) => {
+    b.classList.toggle("answered", state.selected[i] !== null);
+    b.classList.toggle("flag", state.flagged[i]);
+    b.classList.toggle("current", state.current === i);
+  });
+}
+
+function saveAndExit() {
+  state.elapsedBefore = elapsedMs();
+  state.startedAt = Date.now();
+  saveState();
+  clearInterval(timerHandle);
+  examView.classList.add("hidden");
+  startView.classList.remove("hidden");
+  updateResumeButton();
+  toast("Progress saved");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function gradeExam() {
+  const unanswered = state.selected.filter(v => v === null).length;
+  if (unanswered && !confirm(`You still have ${unanswered} unanswered question${unanswered===1?"":"s"}. Submit anyway?`)) return;
+  state.elapsedBefore = elapsedMs();
+  state.submitted = true;
+  state.completedAt = Date.now();
+  clearInterval(timerHandle);
+  localStorage.removeItem(STORAGE_KEY);
+  showResults();
+}
+
+function getResults() {
+  let correct = 0;
+  const details = state.questions.map((q,i) => {
+    const selectedIndex = state.selected[i];
+    const selectedAnswer = selectedIndex === null ? null : q.answers[selectedIndex];
+    const correctAnswer = q.answers.find(a => a.correct);
+    const isCorrect = !!selectedAnswer?.correct;
+    if (isCorrect) correct++;
+    return {q, i, selectedIndex, selectedAnswer, correctAnswer, isCorrect, flagged:state.flagged[i]};
+  });
+  return {correct,total:state.questions.length,details,percent:Math.round(correct/state.questions.length*100)};
+}
+
+function showResults() {
+  examView.classList.add("hidden");
+  startView.classList.add("hidden");
+  resultsView.classList.remove("hidden");
+  const result = getResults();
+  const passed = result.percent >= PASS_SCORE;
+  const degrees = Math.round(result.percent * 3.6);
+  $("scoreRing").style.background = `conic-gradient(${passed ? "var(--ok)" : "var(--blue)"} ${degrees}deg,#dce7ef 0deg)`;
+  $("scoreNumber").textContent = `${result.percent}%`;
+  $("resultTitle").textContent = passed ? "Passed" : "Exam complete";
+  $("resultSub").textContent = `${state.name} answered ${result.total} questions and earned ${result.correct} correct. ${passed ? "The passing standard was met." : `The passing standard is ${PASS_SCORE}%.`}`;
+  $("resultChips").innerHTML = `
+    <span class="result-chip">${result.correct} correct</span>
+    <span class="result-chip">${result.total-result.correct} incorrect/unanswered</span>
+    <span class="result-chip">${formatTime(state.elapsedBefore)} elapsed</span>
+    <span class="result-chip">${new Date(state.completedAt).toLocaleString()}</span>`;
+  renderBreakdown(result);
+  renderReview(result, reviewFilter);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function renderBreakdown(result) {
+  const map = new Map();
+  result.details.forEach(d => {
+    if (!map.has(d.q.section)) map.set(d.q.section, {total:0,correct:0});
+    const row = map.get(d.q.section);
+    row.total++;
+    if (d.isCorrect) row.correct++;
+  });
+  $("breakdownBody").innerHTML = [...map.entries()].map(([section,v]) => {
+    const pct = Math.round(v.correct/v.total*100);
+    return `<tr><td>${escapeHtml(section)}</td><td>${v.correct}</td><td>${v.total}</td><td><strong>${pct}%</strong></td></tr>`;
+  }).join("");
+}
+
+function renderReview(result, filter) {
+  reviewFilter = filter;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b.dataset.filter === filter));
+  let items = result.details;
+  if (filter === "incorrect") items = items.filter(d => !d.isCorrect);
+  if (filter === "flagged") items = items.filter(d => d.flagged);
+  const wrap = $("reviewList");
+  if (!items.length) {
+    wrap.innerHTML = `<div class="empty">No questions match this filter.</div>`;
+    return;
+  }
+  wrap.innerHTML = items.map(d => {
+    const selected = d.selectedAnswer ? d.selectedAnswer.text : "No answer";
+    return `<article class="review-item">
+      <div class="review-q">
+        <span>${d.i+1}. ${escapeHtml(d.q.question)}</span>
+        <span class="${d.isCorrect ? "correct-text" : "wrong-text"}">${d.isCorrect ? "Correct" : "Incorrect"}</span>
+      </div>
+      <div class="review-body">
+        <div><strong>Your answer:</strong> ${escapeHtml(selected)}</div>
+        <div><strong>Correct answer:</strong> <span class="correct-text">${escapeHtml(d.correctAnswer.text)}</span></div>
+        <div style="margin-top:7px">${escapeHtml(d.q.explanation)}</div>
+        <div class="ref">${escapeHtml(d.q.ref)} · ${escapeHtml(d.q.section)}</div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+function shareResults() {
+  const r = getResults();
+  const text = `${state.name} scored ${r.percent}% (${r.correct}/${r.total}) on the Data Center Fiber Optics & Network Infrastructure full exam.`;
+  if (navigator.share) {
+    navigator.share({title:"Fiber Optics Exam Results",text}).catch(()=>{});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(()=>toast("Results copied"));
+  } else {
+    prompt("Copy results:",text);
+  }
+}
+
+function downloadCsv() {
+  const r = getResults();
+  const rows = [["Question","Section","Your answer","Correct answer","Result","Reference"]];
+  r.details.forEach(d => rows.push([
+    d.q.question,
+    d.q.section,
+    d.selectedAnswer?.text || "No answer",
+    d.correctAnswer.text,
+    d.isCorrect ? "Correct" : "Incorrect",
+    d.q.ref
+  ]));
+  const csv = rows.map(row => row.map(v => `"${String(v).replaceAll('"','""')}"`).join(",")).join("\n");
+  const blob = new Blob([csv],{type:"text/csv;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `fiber-optics-exam-results-${state.name.replace(/[^a-z0-9]+/gi,"-").toLowerCase() || "student"}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+
+function toast(message) {
+  const t = $("toast");
+  t.textContent = message;
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),1800);
+}
+
+$("startBtn").addEventListener("click", () => startExam(true));
+$("resumeBtn").addEventListener("click", () => startExam(false));
+$("prevBtn").addEventListener("click", () => goTo(state.current-1));
+$("nextBtn").addEventListener("click", () => {
+  if (state.current < state.questions.length-1) goTo(state.current+1);
+  else document.querySelector(".nav-card").scrollIntoView({behavior:"smooth"});
+});
+$("clearBtn").addEventListener("click", () => {state.selected[state.current]=null;renderQuestion();});
+$("flagBtn").addEventListener("click", () => {state.flagged[state.current]=!state.flagged[state.current];renderQuestion();});
+$("submitBtn").addEventListener("click", gradeExam);
+$("saveExitBtn").addEventListener("click", saveAndExit);
+$("shareBtn").addEventListener("click", shareResults);
+$("csvBtn").addEventListener("click", downloadCsv);
+$("printBtn").addEventListener("click", () => window.print());
+$("retakeBtn").addEventListener("click", () => {
+  if (!confirm("Start a new attempt? Current results will be cleared.")) return;
+  state=null;
+  resultsView.classList.add("hidden");
+  startView.classList.remove("hidden");
+  $("studentName").value="";
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+document.querySelectorAll(".filter-btn").forEach(b => b.addEventListener("click", () => renderReview(getResults(), b.dataset.filter)));
+
+document.addEventListener("keydown", (e) => {
+  if (examView.classList.contains("hidden")) return;
+  if (["INPUT","TEXTAREA"].includes(document.activeElement.tagName)) return;
+  if (["1","2","3"].includes(e.key)) selectAnswer(Number(e.key)-1);
+  if (e.key === "ArrowLeft") goTo(state.current-1);
+  if (e.key === "ArrowRight") goTo(state.current+1);
+});
+
+window.addEventListener("beforeunload", saveState);
+updateResumeButton();
+</script>
+</body>
+</html>
